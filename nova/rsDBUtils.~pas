@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, DBCtrls, Mask, Buttons,
-  DB, DBTables, typinfo;
+  DB, DBTables, typinfo, SqlExpr;
 
 type
 
@@ -20,6 +20,9 @@ type
     procedure OpenTables(Open: Boolean; Form: TForm);
 
     procedure SetDataSourceProperties(AComponent: TComponent; DM: TDataModule);
+
+    procedure SetSQLConection(AComponent: TComponent; DM: TDataModule; Conexao: TSQLConnection);
+
   end;
 
 var
@@ -252,6 +255,19 @@ begin
   end;
 end;
 
+
+procedure TrsDBUtils.SetSQLConection(AComponent: TComponent; Conexao: TSQLConnection);
+var
+  I: Integer;
+  oComp: TComponent;
+begin
+  for I := 0 to (AComponent.ComponentCount-1) do
+  begin
+    oComp := AComponent.Components[I];
+    if UpperCase(copy(oComp.Name,1,3)) = 'SDS' then
+      TSQLDataSet(AComponent.Components[I]).SQLConnection := Conexao;
+  end;
+end;
 
 initialization
   oDBUtils := TrsDBUtils.Create;
