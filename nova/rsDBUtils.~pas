@@ -21,7 +21,7 @@ type
 
     procedure SetDataSourceProperties(AComponent: TComponent; DM: TDataModule);
 
-    procedure SetSQLConection(AComponent: TComponent; DM: TDataModule; Conexao: TSQLConnection);
+    procedure SetSQLConection(AComponent: TComponent; Conexao: TSQLConnection);
 
   end;
 
