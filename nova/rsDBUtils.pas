@@ -172,13 +172,15 @@ procedure TrsDBUtils.SetDataSourceProperties(AComponent: TComponent; DM: TDataMo
   begin
     Result := nil;
     if DataSource <> nil then
-      if DataSource.Owner.ClassName = DM.ClassName then
+      if DM.InheritsFrom(DataSource.Owner.ClassType) then
+      //if DataSource.Owner.ClassName = DM.ClassName then
         Result := TDataSource(DM.FindComponent(DataSource.Name));
   end;
 
   procedure SetNewDataSource( Comp: TObject; DS: String );
   var
     oDataSource: TDataSource;
+    teste: string;
   begin
     if IsPublishedProp(Comp, DS) then
     begin
